@@ -46,16 +46,16 @@ class Component {
 
   //To move the Wooden Raft
   moveLeft() {
-    if (this.x > 0) this.x += -10;
+    if (this.x > 0) this.x += -30;
   }
 
   moveRight() {
-    if (this.x < (myGameArea.canvas.width - this.width)) this.x += 10;
+    if (this.x < (myGameArea.canvas.width - this.width)) this.x += 30;
   }
 }
 
 //The Wooden Raft
-const woodenRaft = new Component('brown',((1000 / 2) - 75), 600 - 50, 150, 20); //(color, x: (W/2)- (this.width/2), y: H - 50, width, height)
+const woodenRaft = new Component('darkred',((1000 / 2) - 75), 600 - 50, 175, 20); //(color, x: (W/2)- (this.width/2), y: H - 50, width, height)
 
 //Bush reeds
 const bushReedsLeft = new Component('greenyellow', 0, 600 - 175, 125, 175);
@@ -84,10 +84,61 @@ const crocodile1 = new Component('green', 1000 / 5, 325, 75, 10);
 const crocodile2 = new Component('green', 1000 - 300, 375, 100, 15);
 const crocodile3 = new Component('green', 1000 / 3, 600- 40, 50, 50); //(x, y: 600 - heigth, width, heigth)
 
+const crocodiles = [crocodile1, crocodile2, crocodile3]; //array objects
+let crocodile;
+
 const openMouthCroco = new Component('green', 1000 - 75, 600 - 100, 50, 100); //(x: this.x of Paratrooper, y: 600 - heigth, width, heigth)
 
-//Paratroopers
+//Parachutes : Paratroopers & others
 
+function random(arr) {
+  var randomIndex = Math.trunc (Math.random() * arr.length);
+    return arr[randomIndex];
+}
+
+const framesNumber = 800; 
+const speed = 1; // Increases by 1 each time the score reaches a new 10
+
+const myOrangeParatroopers = [];
+const myBrownParatroopers = [];
+
+function updateRandomElements() {
+  myGameArea.frames += 1;
+  if (myGameArea.frames % (framesNumber/2) === 0) {
+    var W = myGameArea.canvas.width;
+    var minPosX = 0;
+    var maxPosX = W - 50; 
+
+    var orangePosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
+
+    myOrangeParatroopers.push(new Component('orange', orangePosX, 0, 50 , 60)); //color,x ,y, width, height
+  }
+
+  for (i = 0; i < myOrangeParatroopers.length; i++) {
+    myOrangeParatroopers[i].y += speed;
+    myOrangeParatroopers[i].update();
+  }
+
+  if (myGameArea.frames % framesNumber === 0) { //and score > 10 
+    var W = myGameArea.canvas.width;
+    var minPosX = 0;
+    var maxPosX = W - 50; 
+
+    var brownPosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
+
+    myBrownParatroopers.push(new Component('brown', brownPosX, 0, 50 , 60)); //color,x ,y, width, height
+  }
+
+  for (i = 0; i < myBrownParatroopers.length; i++) {
+    myBrownParatroopers[i].y += speed * 1.5;
+    myBrownParatroopers[i].update();
+  }
+  
+  if (myGameArea.frames % 200 === 0) {
+    crocodile = random(crocodiles);
+  }
+
+}
 
 //MOTIONS
 //Moving the Wooden Raft
@@ -111,14 +162,16 @@ function updateGameArea() {
 
   woodenRaft.update();//draw woodenRaft
 
+  /*crocodile1.update();
+  crocodile2.update();
+  crocodile3.update();*/
+
+  updateRandomElements();
+
   bushReedsLeft.update();
   bushReedsRight.update();
 
-  crocodile1.update();
-  crocodile2.update();
-  crocodile3.update();
-
-  //crocodile.update();
+  crocodile.update();
 
   //GameOver = if y(bottom of paratrooper) > y(top of woodenRaft) && !collision between paratrooper and woodenRaft
   openMouthCroco.update(); 
