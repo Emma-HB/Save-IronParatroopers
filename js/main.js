@@ -93,8 +93,8 @@ class Component {
 const woodenRaft = new Component('darkred',(W/2 - 90), H - 50, 180, 20); //(color, x: (W/2)- (this.width/2), y: H - 50, width, height)
 
 //Bush reeds
-const bushReedsLeft = new Component('greenyellow', 0, H - 175, 125, 175);
-const bushReedsRight = new Component('greenyellow', W - 125, H - 175, 125, 175);
+const bushReedsLeft = new Component('rgba(172, 255, 47, 0.568)', 0, H - 175, 125, 175);
+const bushReedsRight = new Component('rgba(172, 255, 47, 0.568)', W - 125, H - 175, 125, 175);
 
 //COMPONENTS with Random Positions
 const crocodile1 = new Component('green', W / 5, 325, 75, 10);
@@ -191,18 +191,48 @@ function pickUp() {
 }
 
 //GAME OVER
-//const openMouthCroco = new Component('green', W - 75, H - 100, 50, 100); //(x: this.x of Paratrooper, y: H - heigth, width, heigth)
+
+let sunkParatroopers = [];
+
+function checkGameover() {
+  myOrangeParatroopers = myOrangeParatroopers.filter(function(el) {
+    if (el.bottom() > H) {
+      sunkParatroopers.push(el);
+      const openMouthCroco = new Component('green', el.left(), H - 100, 50, 100);
+      openMouthCroco.update();
+      return false;
+    } else {
+      return true;
+    } 
+  })
+
+  myBrownParatroopers = myBrownParatroopers.filter(function(el) {
+    if (el.bottom() > H) {
+      sunkParatroopers.push(el);
+      const openMouthCroco = new Component('green', el.left(), H - 100, 50, 100); 
+      openMouthCroco.update();
+      return false;
+    } else {
+      return true;
+    } 
+  })
+
+  if (sunkParatroopers.length > 0) {
+    myGameArea.stop();
+  }
+}
 
 //Animation
 function updateGameArea() {
   //
   //toutes les 20ms
   //
-  myGameArea.clear(); //clear
+  myGameArea.clear();
 
   pickUp();
+  checkGameover();
 
-  woodenRaft.update();//draw woodenRaft
+  woodenRaft.update();
 
   updateRandomElements();
 
@@ -212,8 +242,6 @@ function updateGameArea() {
   scoreboard.update();
   myGameArea.printScore();
 
-  //GameOver = if y(bottom of paratrooper) > y(top of woodenRaft) && !collision between paratrooper and woodenRaft
-  //openMouthCroco.update(); 
 }
 
 myGameArea.start();
