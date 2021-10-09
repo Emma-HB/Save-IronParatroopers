@@ -110,7 +110,16 @@ function random(arr) {
 }
 
 const framesNumber = 800; 
-const speed = 1; // Increases by 1 each time the score reaches a new 10
+const speed = 1; 
+
+let level = 0; 
+function nextLevel() {
+  if (score >= 10) {
+    level = Math.trunc(score / 10);
+  } 
+  return level
+}
+
 
 let myOrangeParatroopers = [];
 let myBrownParatroopers = [];
@@ -134,7 +143,7 @@ function updateRandomElements() {
   }
 
   for (i = 0; i < myOrangeParatroopers.length; i++) {
-    myOrangeParatroopers[i].y += speed;
+    myOrangeParatroopers[i].y += (speed + level) ;
     myOrangeParatroopers[i].update();
   }
 
@@ -149,7 +158,7 @@ function updateRandomElements() {
   }
 
   for (i = 0; i < myBrownParatroopers.length; i++) {
-    myBrownParatroopers[i].y += speed * 1.5;
+    myBrownParatroopers[i].y += (speed + level)* 1.5;
     myBrownParatroopers[i].update();
   } 
 }
@@ -229,10 +238,10 @@ function updateGameArea() {
   //
   myGameArea.clear();
 
+  woodenRaft.update();
+
   pickUp();
   checkGameover();
-
-  woodenRaft.update();
 
   updateRandomElements();
 
@@ -241,6 +250,8 @@ function updateGameArea() {
 
   scoreboard.update();
   myGameArea.printScore();
+
+  nextLevel();
 
 }
 
