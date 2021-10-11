@@ -27,8 +27,8 @@ const myGameArea = {
   },
 
   printScore: function () {
-    this.context.font = '32px Ruslan Display, cursive';
-    this.context.fillStyle = 'yellow';
+    this.context.font = '35px Ruslan Display, cursive';
+    this.context.fillStyle = '#FFD12C';
     this.context.textAlign = "center";
     if (score < 10) {
     this.context.fillText(`0${score}`, W - 35, H - 25);
@@ -39,40 +39,50 @@ const myGameArea = {
 };
 
 // COMPONENTS
-//Testing the Component class with rectangles before importing images
 class Component {
-  constructor(color,x ,y, width, height) {
-    this.color = color;
+  constructor(srcImg,x ,y, width, height) { 
+    
+    if (srcImg.includes('images/')) {
+      this.image = new Image();
+
+      this.image.src = srcImg;
+      this.image.onload = () => {
+        const imageRatio = this.image.naturalWidth/this.image.naturalHeight;
+        this.height = this.width/imageRatio;
+      }
+    }
+    
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
+    this.width = width;  
   }
 
-  //Draw component
   update() {
     const ctx = myGameArea.context;
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    if (this.image) {
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    } else {
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
   }
 
-  //To move the Wooden Raft
   moveLeft() {
     if (this.x > 0) this.x += -30;
   }
-
   moveRight() {
     if (this.x < (myGameArea.canvas.width - this.width)) this.x += 30;
   }
 
   left() {
-    return this.x;
+    return this.x + this.width/12;
   }
   right() {
-    return this.x + this.width;
+    return this.x + (this.width - this.width/12) ;
   }
   top() {
-    return this.y;
+    return this.y + this.height/2;
   }
   bottom() {
     return this.y + this.height;
@@ -90,16 +100,16 @@ class Component {
 }
 
 //The Wooden Raft
-const woodenRaft = new Component('darkred',(W/2 - 90), H - 50, 180, 20); //(color, x: (W/2)- (this.width/2), y: H - 50, width, height)
+const woodenRaft = new Component('images/wooden-raft.png',(W/2 - W/8), H - W/12, W / 4, this.height);
 
 //Bush reeds
-const bushReedsLeft = new Component('rgba(172, 255, 47, 0.568)', 0, H - 175, 125, 175);
-const bushReedsRight = new Component('rgba(172, 255, 47, 0.568)', W - 125, H - 175, 125, 175);
+const bushReedsLeft = new Component('images/bushreeds-left.png', 0 - (W/17), H - W/4.5, W / 5, this.height);
+const bushReedsRight = new Component('images/bushreeds-right.png', W - (W/6.5), H - W/4.5, W / 5, this.height);
 
 //COMPONENTS with Random Positions
-const crocodile1 = new Component('green', W / 5, 325, 75, 10);
-const crocodile2 = new Component('green', W - 300, 375, 100, 15);
-const crocodile3 = new Component('green', W / 3, H- 40, 50, 50);
+const crocodile1 = new Component('images/crocodile-1.png', W / 7, H - (H/3), W/6, 10);
+const crocodile2 = new Component('images/crocodile-2.png', W - 300, H - (H/3.5), W/5, 15);
+const crocodile3 = new Component('images/crocodile-3.png', W / 3, H- 50, W/5, 50);
 
 const crocodiles = [crocodile1, crocodile2, crocodile3];
 let crocodile;
@@ -135,11 +145,11 @@ function updateRandomElements() {
   if (myGameArea.frames % (framesNumber/2) === 0) {
     var W = myGameArea.canvas.width;
     var minPosX = 0;
-    var maxPosX = W - 50; 
+    var maxPosX = W - (W/10); 
 
     var orangePosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
 
-    myOrangeParatroopers.push(new Component('orange', orangePosX, 0, 50 , 60)); 
+    myOrangeParatroopers.push(new Component('images/orange-paratrooper.png', orangePosX, 0, W / 8 , this.height)); 
   }
 
   for (i = 0; i < myOrangeParatroopers.length; i++) {
@@ -147,14 +157,14 @@ function updateRandomElements() {
     myOrangeParatroopers[i].update();
   }
 
-  if (myGameArea.frames % framesNumber === 0) { //and score > 10 
+  if (myGameArea.frames % framesNumber === 0) { 
     var W = myGameArea.canvas.width;
     var minPosX = 0;
-    var maxPosX = W - 50; 
+    var maxPosX = W - (W/8); 
 
     var brownPosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
 
-    myBrownParatroopers.push(new Component('brown', brownPosX, 0, 50 , 60)); //color,x ,y, width, height
+    myBrownParatroopers.push(new Component('images/brown-paratrooper.png', brownPosX, 0, W / 8 , this.height));
   }
 
   for (i = 0; i < myBrownParatroopers.length; i++) {
@@ -177,7 +187,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 //SAVED 
-let scoreboard = new Component ('green', W - 65, H - 55, 60, 40);
+//let scoreboard = new Component ('images/scoreboard copie.png', W - W/3.755, H - H/4, 600, this.height);
 
 function pickUp() {
   myOrangeParatroopers = myOrangeParatroopers.filter(function(el) {
@@ -248,7 +258,7 @@ function updateGameArea() {
   bushReedsLeft.update();
   bushReedsRight.update();
 
-  scoreboard.update();
+  //scoreboard.update();
   myGameArea.printScore();
 
   nextLevel();

@@ -6,6 +6,8 @@ body {
 } 
 
 .game-area-canvas {
-  background-color: papayawhip;
+  /*background-color: papayawhip;*/
+  background-image: url("../images/background-game-area.png");
+  background-size: cover;
   margin: auto;
 }
