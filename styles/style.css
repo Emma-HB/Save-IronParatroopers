@@ -31,10 +31,9 @@ body {
   font-size: 1.2em;
   text-align: center;
   color: #FFE4B1;
-  text-shadow: 1px 1px 1px #642F21; /*#664515*/
+  text-shadow: 1px 1px 1px #642F21; 
   border-radius: 11px;
   background-color: rgba(238, 119, 28, 0.7);
-  /*background-image: linear-gradient(135deg, #EE771C, #FFE4B1)*/
   background-image: linear-gradient(to top left,
                                     rgba(0, 0, 0, .2),
                                     rgba(0, 0, 0, .2) 30%,
@@ -60,7 +59,7 @@ body {
   font-size: 1.2rem;
   text-align: center;
   color: #FFE4B1;
-  text-shadow: 1px 1px 1px #642F21; /*#664515*/
+  text-shadow: 1px 1px 1px #642F21; 
   border-radius: 11px;
   background-color: rgba(238, 119, 28, 0.7);
   background-image: linear-gradient(to top left,
@@ -85,11 +84,9 @@ body {
 
 
 #info {
-  visibility: hidden;
-  /*heigth: 100% */
-  /*width: 100% */
+  height: 100vh;
   margin: 0;
-  background-image: url("../images/homepage-background.png");
+  background-image: url("../images/info-background.png");
   background-size: cover;
   display: none;/*flex;*/
   align-items: center;
@@ -130,7 +127,6 @@ body {
   margin: 12px;
   width: 35%;
   height: auto;
-  box-sizing: border-box;
 }
 
 .controls-box p {
@@ -207,7 +203,7 @@ input, select, textarea{
 
 
 .game-area-canvas {
-  background-image: url("../images/background-game-area.png");
+  background-image: url("../images/game-area-background.png");
   background-size: cover;
   margin: auto;
 }
@@ -217,9 +213,7 @@ input, select, textarea{
 
 
 .game-over {
-  visibility: hidden;
-  /*heigth: 100% */
-  /*width: 100% */
+  height: 100vh;
   margin: 0;
   background-image: url("../images/game-over-background.png");
   background-size: cover;
