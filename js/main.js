@@ -174,7 +174,6 @@ function updateRandomElements() {
 }
 
 //MOTIONS
-//Moving the Wooden Raft
 document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'ArrowLeft':
@@ -187,8 +186,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 //SAVED 
-//let scoreboard = new Component ('images/scoreboard copie.png', W - W/3.755, H - H/4, 600, this.height);
-
 function pickUp() {
   myOrangeParatroopers = myOrangeParatroopers.filter(function(el) {
     if (woodenRaft.crashWith(el)) {
@@ -210,7 +207,6 @@ function pickUp() {
 }
 
 //GAME OVER
-
 let sunkParatroopers = [];
 
 function checkGameover() {
@@ -258,7 +254,6 @@ function updateGameArea() {
   bushReedsLeft.update();
   bushReedsRight.update();
 
-  //scoreboard.update();
   myGameArea.printScore();
 
   nextLevel();

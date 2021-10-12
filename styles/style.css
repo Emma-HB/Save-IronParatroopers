@@ -1,13 +1,303 @@
-@import url('https://fonts.googleapis.com/css2?family=Ruslan+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300&family=Ruslan+Display&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-} 
+  font-family: londrina Solid, serif;
+  font-size: 1.2rem;
+}
+
+
+/*-- WELCOME SECTION --*/
+
+
+.homepage {
+  height: 100vh;
+  background-image: url("../images/homepage-background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content:space-evenly;
+}
+
+.start-button {
+  font-family: londrina Solid, serif;
+  border: 0;
+  line-height: 2.5;
+  padding: 0 15px;
+  font-size: 1.2em;
+  text-align: center;
+  color: #FFE4B1;
+  text-shadow: 1px 1px 1px #642F21; /*#664515*/
+  border-radius: 11px;
+  background-color: rgba(238, 119, 28, 0.7);
+  /*background-image: linear-gradient(135deg, #EE771C, #FFE4B1)*/
+  background-image: linear-gradient(to top left,
+                                    rgba(0, 0, 0, .2),
+                                    rgba(0, 0, 0, .2) 30%,
+                                    rgba(0, 0, 0, 0));                                 
+  box-shadow: inset 2px 2px 3px rgba(250, 249, 247, 0.6),
+              inset -2px -2px 3px rgba(0, 0, 0, .2);
+}
+
+.start-button:hover {
+  background-color: #CF4B1C;
+}
+
+.start-button:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+.start-button {
+  font-family: londrina Solid, serif;
+  border: 0;
+  line-height: 2.5;
+  padding: 0 15px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #FFE4B1;
+  text-shadow: 1px 1px 1px #642F21; /*#664515*/
+  border-radius: 11px;
+  background-color: rgba(238, 119, 28, 0.7);
+  background-image: linear-gradient(to top left,
+                                    rgba(0, 0, 0, .2),
+                                    rgba(0, 0, 0, .2) 30%,
+                                    rgba(0, 0, 0, 0));                                 
+  box-shadow: inset 2px 2px 3px rgba(250, 249, 247, 0.6),
+              inset -2px -2px 3px rgba(0, 0, 0, .2);
+}
+
+.start-button:hover {
+  background-color: #CF4B1C;
+}
+
+.start-button:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+
+/*-- INFO SECTION --*/
+
+
+#info {
+  visibility: hidden;
+  /*heigth: 100% */
+  /*width: 100% */
+  margin: 0;
+  background-image: url("../images/homepage-background.png");
+  background-size: cover;
+  display: none;/*flex;*/
+  align-items: center;
+  justify-content: center;
+}
+
+.info-box {
+  background-color: #8CAD01;
+  color: #FFE0A5;
+  text-align: center;
+  padding: 20px 30px;
+  margin: 15% 32%;
+  border-radius: 20px;
+}
+
+.info-box img {
+  margin: -40px auto 10px;
+  width: 90%;
+}
+
+.info-box p {
+  margin: 5px auto 15px
+}
+
+.controls-box {
+  background-color: #7A9603;
+  text-align: center;
+  padding: 15px 60px;
+  margin: 20px auto;
+  border-radius: 20px;
+}
+
+.info-box article {
+  padding: 5px;
+}
+
+.controls-box img {
+  margin: 12px;
+  width: 35%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.controls-box p {
+  margin: 15px;
+  padding: 5px;
+}
+
+.controls-box div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+input {
+  width: 120px;
+  padding: 6px 0;
+  margin: 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: #FFE0A5;
+  border-color: #FFE0A5; 
+}
+
+::placeholder {
+  color:#8CAD01;
+  font-size: 18px;
+  font-style: italic;
+  font-family: Londrina Solid, serif;
+  text-align: center;
+}
+
+input, select, textarea{
+  color:#8CAD01;
+  font-size: 18px;
+  font-style: bold;
+  font-family: Londrina Solid, serif;
+  text-align: center;
+
+}
+
+.go-button {
+  font-family: londrina Solid, serif;
+  border: 0;
+  line-height: 2;
+  padding: 0 30px;
+  font-size: 1.3rem;
+  text-align: center;
+  color: #FFE4B1;
+  text-shadow: 1px 1px 1px #642F21; /*#664515*/
+  border-radius: 11px;
+  background-color: rgba(238, 119, 28, 0.7);
+  /*background-image: linear-gradient(135deg, #EE771C, #FFE4B1)*/
+  background-image: linear-gradient(to top left,
+                                    rgba(0, 0, 0, .2),
+                                    rgba(0, 0, 0, .2) 30%,
+                                    rgba(0, 0, 0, 0));                                 
+  box-shadow: inset 2px 2px 3px rgba(250, 249, 247, 0.6),
+              inset -2px -2px 3px rgba(0, 0, 0, .2);
+}
+
+.go-button:hover {
+  background-color: #CF4B1C;
+}
+
+.go-button:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+
+/*-- GAME AREA --*/
+
 
 .game-area-canvas {
-  /*background-color: papayawhip;*/
   background-image: url("../images/background-game-area.png");
   background-size: cover;
   margin: auto;
+}
+
+
+/*-- GAME OVER SECTION --*/
+
+
+.game-over {
+  visibility: hidden;
+  /*heigth: 100% */
+  /*width: 100% */
+  margin: 0;
+  background-image: url("../images/game-over-background.png");
+  background-size: cover;
+  display: none;/*flex;*/
+  align-items: center;
+  justify-content: center;
+}
+
+#game-over-box {
+  background-color: #CF4B1C;;
+  color: #FFE0A5;
+  text-align: center;
+  padding: 0;
+  margin: 30px;
+  width: 350px;
+  height: 460px;
+  border-radius: 20px;
+  font-size: 1.3rem;
+}
+
+h2 {
+  margin: 20px;
+  font-size: 2em;
+}
+
+#player-name {
+  color: #8CAD01;
+  font-size: 0.9em;
+}
+
+.paratroopers-saved {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 11% 20%;
+}
+
+.paratroopers-saved p {
+  padding: 20px auto;
+}
+
+.paratroopers-saved div {
+  font-family: Ruslan Display, cursive;
+  font-size: 30px;
+  padding: 10px auto;
+}
+
+.paratroopers-saved img {
+  width: 30% 
+}
+
+.reset-button {
+  margin: 2% auto;
+  font-family: londrina Solid, serif;
+  border: 0;
+  width: 60px;
+  height: 60px;
+  font-size: 180%;
+  text-align: center;
+  color: #CF4B1C;
+  text-shadow: 1px 1px 1px #664515; /*#664515*/
+  border-radius: 50% ;
+  background-color: #FFE4B1;
+  /*background-image: linear-gradient(135deg, #EE771C, #FFE4B1)*/
+  background-image: linear-gradient(to top left,
+                                    rgba(0, 0, 0, .2),
+                                    rgba(0, 0, 0, .2) 30%,
+                                    rgba(0, 0, 0, 0));                                 
+  box-shadow: inset 2px 2px 3px rgba(250, 249, 247, 0.6),
+              inset -2px -2px 3px rgba(0, 0, 0, .2);
+}
+
+.reset-button:hover {
+  color: #FFE4B1;
+  background-color: #8CAD01;
+}
+
+.reset-button:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
