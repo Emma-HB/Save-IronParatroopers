@@ -6,13 +6,14 @@
 		<title>Save IronParatroopers</title>
   </head>
   <body>
-    <!-- WELCOME SECTION -->
+
+    <!-- HOMEPAGE SECTION -->
     <section class="homepage">
       <button class="start-button">Start Game</button>
     </section>
 
-    <!-- INFOS SECTION : PLAYERNAME & CONTROLS BUTTONS -->
-    <section id="info">
+    <!-- INFO SECTION : PLAYERNAME & CONTROLS BUTTONS -->
+    <section class="info">
       <div class="info-box">
         <img src="images/save-ironparatroopers-logo.png" alt="Save IronParatroopers" class="logo-img"/>
         <!-- Playername area -->
@@ -31,27 +32,28 @@
             <img src="images/wooden-raft.png" alt="Wooden raft"/> <!-- class="wooden-raft-img" ? -->
           </div>
         </article>
-          <button class="go-button">Go !</button>
+        <button class="go-button">Go !</button>
       </div>
     </section>
 
-      <!-- GAME OVER SECTION -->
+    <!-- GAME OVER SECTION -->
     <section class="game-over">
-      <article id="game-over-box">
-        <h2>Good Job<br><span id="player-name">Player</span> !!</h2>
+      <article class="game-over-box">
+        <h2>Good Job<br><span class="player-name"></span> !!</h2>
 
         <div class="paratroopers-saved">
           <p>You saved</p>
-          <div id="final-score">
-            00	
+          <div>
+            <p class="final-score"></p>	
           </div>
-        <img src="images/black-paratrooper.png" alt="Black IronParatrooper"/>
+          <img src="images/black-paratrooper.png" alt="Black IronParatrooper"/>
         </div>
 
         <p>The other Survivors needs YOU !<br>Try to save MORE !</p>
         <button class="reset-button">⟳</button>
       </article>
     </section>
-    <!-- <script src="js/main.js"></script> -->
+
+    <script src="js/main.js"></script>
   </body>
 </html>

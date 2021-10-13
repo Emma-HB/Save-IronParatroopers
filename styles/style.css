@@ -8,7 +8,7 @@ body {
 }
 
 
-/*-- WELCOME SECTION --*/
+/*-- HOMEPAGE SECTION --*/
 
 
 .homepage {
@@ -21,14 +21,19 @@ body {
   display: flex;
   align-items: center;
   justify-content:space-evenly;
+  position: relative;
 }
 
 .start-button {
+  position: absolute;
+  top: 56vh;
+  left: 82vh;
+
   font-family: londrina Solid, serif;
   border: 0;
   line-height: 2.5;
   padding: 0 15px;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   text-align: center;
   color: #FFE4B1;
   text-shadow: 1px 1px 1px #642F21; 
@@ -83,12 +88,12 @@ body {
 /*-- INFO SECTION --*/
 
 
-#info {
+.info {
   height: 100vh;
   margin: 0;
   background-image: url("../images/info-background.png");
   background-size: cover;
-  display: none;/*flex;*/
+  display: none;
   align-items: center;
   justify-content: center;
 }
@@ -166,7 +171,6 @@ input, select, textarea{
   font-style: bold;
   font-family: Londrina Solid, serif;
   text-align: center;
-
 }
 
 .go-button {
@@ -177,10 +181,9 @@ input, select, textarea{
   font-size: 1.3rem;
   text-align: center;
   color: #FFE4B1;
-  text-shadow: 1px 1px 1px #642F21; /*#664515*/
+  text-shadow: 1px 1px 1px #642F21;
   border-radius: 11px;
   background-color: rgba(238, 119, 28, 0.7);
-  /*background-image: linear-gradient(135deg, #EE771C, #FFE4B1)*/
   background-image: linear-gradient(to top left,
                                     rgba(0, 0, 0, .2),
                                     rgba(0, 0, 0, .2) 30%,
@@ -217,12 +220,12 @@ input, select, textarea{
   margin: 0;
   background-image: url("../images/game-over-background.png");
   background-size: cover;
-  display: none;/*flex;*/
+  display: none;
   align-items: center;
   justify-content: center;
 }
 
-#game-over-box {
+.game-over-box {
   background-color: #CF4B1C;;
   color: #FFE0A5;
   text-align: center;
@@ -239,7 +242,7 @@ h2 {
   font-size: 2em;
 }
 
-#player-name {
+.player-name {
   color: #8CAD01;
   font-size: 0.9em;
 }
@@ -248,17 +251,21 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 11% 20%;
+  margin: 8% 20%;
 }
 
 .paratroopers-saved p {
   padding: 20px auto;
+  line-height: 0.9;;
 }
 
 .paratroopers-saved div {
   font-family: Ruslan Display, cursive;
-  font-size: 30px;
-  padding: 10px auto;
+  font-size: 38px;
+  width: 22%;
+  padding: 15px auto;
+  color:#FFE4B1;
+  text-align: center;
 }
 
 .paratroopers-saved img {

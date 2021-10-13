@@ -2,6 +2,31 @@ let W = window.innerWidth;
 let H = window.innerHeight;
 let score = 0;
 
+//EVENTS:'CLICK' 
+//To create transitions between different sections
+
+//Button 'Start': section 'homepage' >> section 'info'
+document.querySelector('.start-button').addEventListener('click',function () {
+  document.querySelector('.homepage').style.display = 'none';
+  document.querySelector('.info').style.display = 'flex';
+});
+
+//Button 'Go !': section 'info' >> 'game-area canvas'
+let playerName;
+document.querySelector('.go-button').addEventListener('click',function () {
+  //Store the playername get in the input
+  playerName = document.querySelector('.playername-area').value;
+
+  document.querySelector('.info').style.display = 'none';
+  myGameArea.start();
+});
+
+//Button 'Reset arrow': section 'game over' >> section 'homepage'
+document.querySelector('.reset-button').addEventListener('click',function () {
+  //to reloads the current URL, like the Refresh button in the browser
+  document.location.reload();
+});
+
 //THE GAME AREA
 const myGameArea = {
   
@@ -15,7 +40,7 @@ const myGameArea = {
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 		this.interval = setInterval(updateGameArea, 16); //60 FPS
 
-    this.canvas.class =  document.querySelector('canvas').classList.add('game-area-canvas'); //
+    this.canvas.class =  document.querySelector('canvas').classList.add('game-area-canvas');
   },
 
 	stop: function () {
@@ -26,12 +51,18 @@ const myGameArea = {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
+  //Remove the space this.canvas occupied in the body
+  gameOver: function () {
+    document.body.removeChild(this.canvas);
+  },
+
+  //Print the score during the game
   printScore: function () {
     this.context.font = '35px Ruslan Display, cursive';
     this.context.fillStyle = '#FFD12C';
     this.context.textAlign = "center";
     if (score < 10) {
-    this.context.fillText(`0${score}`, W - 35, H - 25);
+      this.context.fillText(`0${score}`, W - 35, H - 25);
     } else {
       this.context.fillText(`${score}`, W - 35, H - 25);
     }
@@ -50,13 +81,14 @@ class Component {
         const imageRatio = this.image.naturalWidth/this.image.naturalHeight;
         this.height = this.width/imageRatio;
       }
-    }
+    };
     
     this.x = x;
     this.y = y;
     this.width = width;  
-  }
+  };
 
+  //Draw components
   update() {
     const ctx = myGameArea.context;
 
@@ -65,29 +97,34 @@ class Component {
     } else {
       ctx.fillStyle = this.color;
       ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-  }
+    };
+  };
 
+  //To move 'the Wooden raft' component
   moveLeft() {
-    if (this.x > 0) this.x += -30;
-  }
+    if (this.x > 0) this.x -= 30;
+  };
   moveRight() {
     if (this.x < (myGameArea.canvas.width - this.width)) this.x += 30;
-  }
+  };
 
+  //To pick up the Ironparatroopers
+
+  //Limits of 'the Wooden raft' component
   left() {
-    return this.x + this.width/12;
-  }
+    return this.x + (this.width/12);
+  };
   right() {
-    return this.x + (this.width - this.width/12) ;
-  }
+    return this.x + (this.width - (this.width/12));
+  };
   top() {
-    return this.y + this.height/2;
-  }
+    return this.y + (this.height/2);
+  };
   bottom() {
     return this.y + this.height;
-  }
+  };
  
+  //Collision to pick up orangeParatroopers & brownParatroopers components
   crashWith(el) {
     return (
       this.bottom() > el.top() &&
@@ -96,17 +133,18 @@ class Component {
       this.left() < el.right() &&
       this.bottom() > el.bottom()
     );
-  }
-}
+  };
+};
 
-//The Wooden Raft
+//The Wooden Raft (the player)
 const woodenRaft = new Component('images/wooden-raft.png',(W/2 - W/8), H - W/12, W / 4, this.height);
 
-//Bush reeds
+//Bush reeds (design elements)
 const bushReedsLeft = new Component('images/bushreeds-left.png', 0 - (W/17), H - W/4.5, W / 5, this.height);
 const bushReedsRight = new Component('images/bushreeds-right.png', W - (W/6.5), H - W/4.5, W / 5, this.height);
 
 //COMPONENTS with Random Positions
+//CROCODILES (design elements)
 const crocodile1 = new Component('images/crocodile-1.png', W / 7, H - (H/3), W/6, 10);
 const crocodile2 = new Component('images/crocodile-2.png', W - 300, H - (H/3.5), W/5, 15);
 const crocodile3 = new Component('images/crocodile-3.png', W / 3, H- 50, W/5, 50);
@@ -114,35 +152,42 @@ const crocodile3 = new Component('images/crocodile-3.png', W / 3, H- 50, W/5, 50
 const crocodiles = [crocodile1, crocodile2, crocodile3];
 let crocodile;
 
+//To make the crocodile components appear at 3 random positions for a 3D movement effect
 function random(arr) {
-  var randomIndex = Math.trunc (Math.random() * arr.length);
-    return arr[randomIndex];
-}
+  var randomIndex = Math.trunc(Math.random() * arr.length);
+  return arr[randomIndex];
+};
 
-const framesNumber = 800; 
+//IRONPARATROOPERS
+let myOrangeParatroopers = [];
+let myBrownParatroopers = [];
+
+//Control of the IronParatroopers' fall speed : accelerates each time the score reaches a new ten
 const speed = 1; 
-
 let level = 0; 
 function nextLevel() {
   if (score >= 10) {
     level = Math.trunc(score / 10);
-  } 
-  return level
-}
+  }; 
+  return level;
+};
 
-
-let myOrangeParatroopers = [];
-let myBrownParatroopers = [];
+//Random appearances & Fall effect  
+const framesNumber = 800; 
 
 function updateRandomElements() {
   myGameArea.frames += 1;
 
+  //To change the crocodile’s position every 200 frames
   if (myGameArea.frames % 200 === 0) {
     crocodile = random(crocodiles);
-  }
+  };
   crocodile.update();
 
+  //To make new OrangeParatroopers appear every 400 frames
   if (myGameArea.frames % (framesNumber/2) === 0) {
+    //from the top of the screen (this.y = 0) 
+    //& from random positions according to the width of the screen (this.x = random position)
     var W = myGameArea.canvas.width;
     var minPosX = 0;
     var maxPosX = W - (W/10); 
@@ -150,30 +195,33 @@ function updateRandomElements() {
     var orangePosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
 
     myOrangeParatroopers.push(new Component('images/orange-paratrooper.png', orangePosX, 0, W / 8 , this.height)); 
-  }
+  };
 
+  //Fall speed of OrangeParatroopers
   for (i = 0; i < myOrangeParatroopers.length; i++) {
-    myOrangeParatroopers[i].y += (speed + level) ;
+    myOrangeParatroopers[i].y += (speed + level);
     myOrangeParatroopers[i].update();
-  }
+  };
 
+  //To make new BrownParatroopers appear every 800 frames
   if (myGameArea.frames % framesNumber === 0) { 
     var W = myGameArea.canvas.width;
     var minPosX = 0;
-    var maxPosX = W - (W/8); 
+    var maxPosX = W - (W/10); 
 
     var brownPosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
 
     myBrownParatroopers.push(new Component('images/brown-paratrooper.png', brownPosX, 0, W / 8 , this.height));
-  }
+  };
 
+  //Fall speed of BrownParatroopers (faster than the Oranges because the parachute canopy has holes!)
   for (i = 0; i < myBrownParatroopers.length; i++) {
     myBrownParatroopers[i].y += (speed + level)* 1.5;
     myBrownParatroopers[i].update();
-  } 
-}
+  }; 
+};
 
-//MOTIONS
+//MOTIONS of the Wooden raft
 document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'ArrowLeft':
@@ -182,19 +230,20 @@ document.addEventListener('keydown', (e) => {
     case 'ArrowRight': 
     woodenRaft.moveRight();
       break;
-  }
+  };
 });
 
-//SAVED 
+//SAVED : Score increase for each Ironparatrooper picked up from the Wooden raft
 function pickUp() {
   myOrangeParatroopers = myOrangeParatroopers.filter(function(el) {
+    //if there is a collision between the Wooden raft and a array el (= paratrooper)
     if (woodenRaft.crashWith(el)) {
       score += 1; 
-      return false; 
+      return false; //we don't keep el in myOrangeParatroopers array = it disappears from the game area
     } else {
-      return true; 
-    } 
-  })
+      return true; //else we keep it
+    }; 
+  });
 
   myBrownParatroopers = myBrownParatroopers.filter(function(el) {
     if (woodenRaft.crashWith(el)) {
@@ -202,45 +251,55 @@ function pickUp() {
       return false; 
     } else {
       return true; 
-    }  
-  })
-}
+    };  
+  });
+};
 
-//GAME OVER
+//GAME OVER : when a Ironparatrooper touches 'the water below the Wooden raft' (= bottom of game area)
 let sunkParatroopers = [];
 
 function checkGameover() {
   myOrangeParatroopers = myOrangeParatroopers.filter(function(el) {
+    //if the bottom of el > the bottom of game area (= H)
     if (el.bottom() > H) {
-      sunkParatroopers.push(el);
-      const openMouthCroco = new Component('green', el.left(), H - 100, 50, 100);
-      openMouthCroco.update();
-      return false;
+      sunkParatroopers.push(el); //el is added to the 'sunkParatroopers' array
+      return false; //we don't keep el in myOrangeParatroopers array = it disappears from the game area
     } else {
-      return true;
-    } 
-  })
+      return true; //else we keep it
+    }; 
+  });
 
   myBrownParatroopers = myBrownParatroopers.filter(function(el) {
     if (el.bottom() > H) {
       sunkParatroopers.push(el);
-      const openMouthCroco = new Component('green', el.left(), H - 100, 50, 100); 
-      openMouthCroco.update();
       return false;
     } else {
       return true;
-    } 
-  })
+    }; 
+  });
 
+  //if an Orange or Brown IronParatrooper is added to the sunkParatroopers aaray = Game Over!
   if (sunkParatroopers.length > 0) {
+    //Stop refresh canvas
     myGameArea.stop();
-  }
-}
+    //Remove the space it occupied in the body
+    myGameArea.gameOver();
+    //Show the section 'game-over'
+    document.querySelector('.game-over').style.display = 'flex';
+    document.querySelector('.player-name').textContent = `${playerName}`;
+    //Print the final score 
+    if (score < 10) {
+      document.querySelector('.final-score').textContent = `0${score}`;
+    } else {
+      document.querySelector('.final-score').textContent = `${score}`;
+    };
+  };
+};
 
 //Animation
 function updateGameArea() {
   //
-  //toutes les 20ms
+  //every 16 milliseconds
   //
   myGameArea.clear();
 
@@ -257,9 +316,4 @@ function updateGameArea() {
   myGameArea.printScore();
 
   nextLevel();
-
 }
-
-myGameArea.start();
-
-
