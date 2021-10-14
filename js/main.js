@@ -2,13 +2,27 @@ let W = window.innerWidth;
 let H = window.innerHeight;
 let score = 0;
 
+//HOMEPAGE 
+//Audio
+let audioHomepage = document.createElement("audio");
+audioHomepage.src = "audio/mixkit-sounds-of-the-river-and-birds-2453.wav";
+document.addEventListener('mousemove',function () {
+  audioHomepage.loop = true;
+  audioHomepage.play();
+});
+
 //EVENTS:'CLICK' 
 //To create transitions between different sections
 
 //Button 'Start': section 'homepage' >> section 'info'
 document.querySelector('.start-button').addEventListener('click',function () {
+  //Transition
   document.querySelector('.homepage').style.display = 'none';
   document.querySelector('.info').style.display = 'flex';
+  //Audio
+  let audioClickStart = document.createElement("audio");
+  audioClickStart.src = "audio/mixkit-fish-flapping-2457.wav";
+  audioClickStart.play();
 });
 
 //Button 'Go !': section 'info' >> 'game-area canvas'
@@ -16,14 +30,19 @@ let playerName;
 document.querySelector('.go-button').addEventListener('click',function () {
   //Store the playername get in the input
   playerName = document.querySelector('.playername-area').value;
-
+  //Transition
   document.querySelector('.info').style.display = 'none';
+  //Audio
+  let audioClickGo = document.createElement("audio");
+  audioClickGo.src = "audio/mixkit-fish-flapping-2457.wav";
+  audioClickGo.play();
+  //Start game area canvas
   myGameArea.start();
 });
 
 //Button 'Reset arrow': section 'game over' >> section 'homepage'
 document.querySelector('.reset-button').addEventListener('click',function () {
-  //to reloads the current URL, like the Refresh button in the browser
+  //To reloads the current URL, like the Refresh button in the browser
   document.location.reload();
 });
 
@@ -80,7 +99,7 @@ class Component {
       this.image.onload = () => {
         const imageRatio = this.image.naturalWidth/this.image.naturalHeight;
         this.height = this.width/imageRatio;
-      }
+      };
     };
     
     this.x = x;
@@ -194,7 +213,12 @@ function updateRandomElements() {
 
     var orangePosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
 
-    myOrangeParatroopers.push(new Component('images/orange-paratrooper.png', orangePosX, 0, W / 8 , this.height)); 
+    myOrangeParatroopers.push(new Component('images/orange-paratrooper.png', orangePosX, 0, W / 8 , this.height));
+    
+    //Audio
+    let audioPlane = document.createElement("audio");
+    audioPlane.src = "audio/mixkit-vibrating-wind-passing-by-2705.wav";
+    audioPlane.play();
   };
 
   //Fall speed of OrangeParatroopers
@@ -212,6 +236,11 @@ function updateRandomElements() {
     var brownPosX = Math.floor(Math.random() * (maxPosX - minPosX + 1) + minPosX);
 
     myBrownParatroopers.push(new Component('images/brown-paratrooper.png', brownPosX, 0, W / 8 , this.height));
+
+    //Audio
+    let audioHoleyCanopy = document.createElement("audio");
+    audioHoleyCanopy.src = "audio/mixkit-cartoon-falling-whistle-395.wav";
+    audioHoleyCanopy.play();
   };
 
   //Fall speed of BrownParatroopers (faster than the Oranges because the parachute canopy has holes!)
@@ -238,7 +267,11 @@ function pickUp() {
   myOrangeParatroopers = myOrangeParatroopers.filter(function(el) {
     //if there is a collision between the Wooden raft and a array el (= paratrooper)
     if (woodenRaft.crashWith(el)) {
-      score += 1; 
+      score += 1;
+      //Audio
+      let audioVoice1 = document.createElement("audio");
+      audioVoice1.src = "audio/mixkit-males-yes-victory-2012.wav";
+      audioVoice1.play();   
       return false; //we don't keep el in myOrangeParatroopers array = it disappears from the game area
     } else {
       return true; //else we keep it
@@ -248,6 +281,10 @@ function pickUp() {
   myBrownParatroopers = myBrownParatroopers.filter(function(el) {
     if (woodenRaft.crashWith(el)) {
       score += 1;
+      //Audio
+      let audioVoice2 = document.createElement("audio");
+      audioVoice2.src = "audio/mixkit-fighting-man-voice-of-pain-2173.wav";
+      audioVoice2.play();   
       return false; 
     } else {
       return true; 
@@ -280,6 +317,10 @@ function checkGameover() {
 
   //if an Orange or Brown IronParatrooper is added to the sunkParatroopers aaray = Game Over!
   if (sunkParatroopers.length > 0) {
+    //Audio
+    let audioAngryCroco = document.createElement("audio");
+    audioAngryCroco.src = "audio/mixkit-angry-monster-scream-1963.wav";
+    audioAngryCroco.play();
     //Stop refresh canvas
     myGameArea.stop();
     //Remove the space it occupied in the body

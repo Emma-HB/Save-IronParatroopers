@@ -218,7 +218,7 @@ input, select, textarea{
 .game-over {
   height: 100vh;
   margin: 0;
-  background-image: url("../images/game-over-background.png");
+  background-image: /*url("../images/game-over.gif"), */url("../images/game-over-background.png");
   background-size: cover;
   display: none;
   align-items: center;
