@@ -6,7 +6,7 @@ let score = 0;
 //Audio
 let audioHomepage = document.createElement("audio");
 audioHomepage.src = "audio/mixkit-sounds-of-the-river-and-birds-2453.wav";
-document.addEventListener('mousemove',function () {
+document.addEventListener('click',function () {
   audioHomepage.loop = true;
   audioHomepage.play();
 });
@@ -100,12 +100,12 @@ class Component {
         const imageRatio = this.image.naturalWidth/this.image.naturalHeight;
         this.height = this.width/imageRatio;
       };
-    };
+    }
     
     this.x = x;
     this.y = y;
     this.width = width;  
-  };
+  }
 
   //Draw components
   update() {
@@ -116,32 +116,32 @@ class Component {
     } else {
       ctx.fillStyle = this.color;
       ctx.fillRect(this.x, this.y, this.width, this.height);
-    };
-  };
+    }
+  }
 
   //To move 'the Wooden raft' component
   moveLeft() {
     if (this.x > 0) this.x -= 30;
-  };
+  }
   moveRight() {
     if (this.x < (myGameArea.canvas.width - this.width)) this.x += 30;
-  };
+  }
 
   //To pick up the Ironparatroopers
 
   //Limits of 'the Wooden raft' component
   left() {
     return this.x + (this.width/12);
-  };
+  }
   right() {
     return this.x + (this.width - (this.width/12));
-  };
+  }
   top() {
     return this.y + (this.height/2);
-  };
+  }
   bottom() {
     return this.y + this.height;
-  };
+  }
  
   //Collision to pick up orangeParatroopers & brownParatroopers components
   crashWith(el) {
@@ -152,8 +152,8 @@ class Component {
       this.left() < el.right() &&
       this.bottom() > el.bottom()
     );
-  };
-};
+  }
+}
 
 //The Wooden Raft (the player)
 const woodenRaft = new Component('images/wooden-raft.png',(W/2 - W/8), H - W/12, W / 4, this.height);
@@ -175,7 +175,7 @@ let crocodile;
 function random(arr) {
   var randomIndex = Math.trunc(Math.random() * arr.length);
   return arr[randomIndex];
-};
+}
 
 //IRONPARATROOPERS
 let myOrangeParatroopers = [];
@@ -187,21 +187,21 @@ let level = 0;
 function nextLevel() {
   if (score >= 10) {
     level = Math.trunc(score / 10);
-  }; 
+  } 
   return level;
-};
+}
 
 //Random appearances & Fall effect  
 const framesNumber = 800; 
 
 function updateRandomElements() {
-  myGameArea.frames += 1;
-
   //To change the crocodile’s position every 200 frames
   if (myGameArea.frames % 200 === 0) {
     crocodile = random(crocodiles);
-  };
+  }
   crocodile.update();
+
+  myGameArea.frames += 1;
 
   //To make new OrangeParatroopers appear every 400 frames
   if (myGameArea.frames % (framesNumber/2) === 0) {
@@ -219,13 +219,13 @@ function updateRandomElements() {
     let audioPlane = document.createElement("audio");
     audioPlane.src = "audio/mixkit-vibrating-wind-passing-by-2705.wav";
     audioPlane.play();
-  };
+  }
 
   //Fall speed of OrangeParatroopers
   for (i = 0; i < myOrangeParatroopers.length; i++) {
     myOrangeParatroopers[i].y += (speed + level);
     myOrangeParatroopers[i].update();
-  };
+  }
 
   //To make new BrownParatroopers appear every 800 frames
   if (myGameArea.frames % framesNumber === 0) { 
@@ -241,14 +241,14 @@ function updateRandomElements() {
     let audioHoleyCanopy = document.createElement("audio");
     audioHoleyCanopy.src = "audio/mixkit-cartoon-falling-whistle-395.wav";
     audioHoleyCanopy.play();
-  };
+  }
 
   //Fall speed of BrownParatroopers (faster than the Oranges because the parachute canopy has holes!)
   for (i = 0; i < myBrownParatroopers.length; i++) {
     myBrownParatroopers[i].y += (speed + level)* 1.5;
     myBrownParatroopers[i].update();
-  }; 
-};
+  }  
+}
 
 //MOTIONS of the Wooden raft
 document.addEventListener('keydown', (e) => {
@@ -259,7 +259,7 @@ document.addEventListener('keydown', (e) => {
     case 'ArrowRight': 
     woodenRaft.moveRight();
       break;
-  };
+  }
 });
 
 //SAVED : Score increase for each Ironparatrooper picked up from the Wooden raft
@@ -275,7 +275,7 @@ function pickUp() {
       return false; //we don't keep el in myOrangeParatroopers array = it disappears from the game area
     } else {
       return true; //else we keep it
-    }; 
+    } 
   });
 
   myBrownParatroopers = myBrownParatroopers.filter(function(el) {
@@ -288,9 +288,9 @@ function pickUp() {
       return false; 
     } else {
       return true; 
-    };  
+    }  
   });
-};
+}
 
 //GAME OVER : when a Ironparatrooper touches 'the water below the Wooden raft' (= bottom of game area)
 let sunkParatroopers = [];
@@ -303,7 +303,7 @@ function checkGameover() {
       return false; //we don't keep el in myOrangeParatroopers array = it disappears from the game area
     } else {
       return true; //else we keep it
-    }; 
+    } 
   });
 
   myBrownParatroopers = myBrownParatroopers.filter(function(el) {
@@ -312,7 +312,7 @@ function checkGameover() {
       return false;
     } else {
       return true;
-    }; 
+    } 
   });
 
   //if an Orange or Brown IronParatrooper is added to the sunkParatroopers aaray = Game Over!
@@ -333,8 +333,8 @@ function checkGameover() {
       document.querySelector('.final-score').textContent = `0${score}`;
     } else {
       document.querySelector('.final-score').textContent = `${score}`;
-    };
-  };
+    }
+  }
 };
 
 //Animation
